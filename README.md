@@ -8,6 +8,9 @@ Date Genie is here to help you plan your date! Date Genie will give you suggesti
 ### Wireframes: 
 https://github.com/Rachnicrice/date-genie/tree/master/wireframes
 
+### Models:
+https://github.com/Rachnicrice/date-genie/tree/master/models
+
 ### User Stories:
 
 1. As a user, I want to be able to create an account on dateGenie, so that when I log in only my saved dates and information is displayed.
