@@ -4,16 +4,15 @@
 const express = require('express');
 require('dotenv').config();
 const superagent = require('superagent');
-const pg = require('pg');
 const methodOverride = require('method-override');
+const client = require('modules/client.js');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
-const client = new pg.Client(process.env.DATABASE_URL);
-client.on('error', err => console.error(err));
+
 
 //import modules:
-const handleLocation = require('modules/location.js');
+const handleLocation = require('./modules/location');
 
 app.use(express.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
@@ -29,7 +28,7 @@ app.use(methodOverride((request, response) => {
 //routes
 app.get('/', (req, res) => {
   res.send('I exist!');
-})
+});
 
 
 //error handlers:
