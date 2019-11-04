@@ -23,6 +23,11 @@ app.use(methodOverride((request, response) => {
   }
 }));
 
+//routes
+app.get('/', (req, res) => {
+  res.send('I exist!');
+})
+
 
 //error handlers:
 app.get('*', notFoundHandler);
