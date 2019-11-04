@@ -5,5 +5,5 @@ require('dotenv').config();
 
 function handleZomato (request, response) {
   const zomatoObject = request.query.data;
-  const = url = ``
+  const url = ``
 }

@@ -12,6 +12,9 @@ const PORT = process.env.PORT || 3001;
 const client = new pg.Client(process.env.DATABASE_URL);
 client.on('error', err => console.error(err));
 
+//import modules:
+const handleLocation = require('modules/location.js');
+
 app.use(express.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
@@ -28,6 +31,8 @@ app.use(methodOverride((request, response) => {
 app.get('*', notFoundHandler);
 app.use(errorHandler);
 
+//routes:
+app.get('/location', handleLocation);
 
 
 function notFoundHandler(req, res) {
