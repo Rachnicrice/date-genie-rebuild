@@ -2,6 +2,7 @@
 
 const client = require('./client.js');
 const superagent = require('superagent');
+const error = require('./error.js');
 
 function handleLocation(req, res) {
   const location = req.query.data;
@@ -11,33 +12,33 @@ function handleLocation(req, res) {
 
 function queryDatabase(req, res, url) {
   let SQL = `SELECT * FROM locations WHERE search_query=$1`;
-  let value = [request];
+  let value = [req];
   return client.query(SQL, value)
     .then(results => {
       //Check to see if location already exists in database
       if (results.rowCount > 0) {
         console.log('from database');
         //If found send to the front end
-        response.status(200).send(results.rows[0]);
+        res.status(200).send(results.rows[0]);
       } else {
         console.log('getting data from API');
         //If data does not exist in database retrieve from API
         superagent.get(url)
           .then(resultsFromAPI => {
             //Create an object location and return to the front end
-            const locationObj = new CityLocation(request, resultsFromAPI.body.results[0]);
+            const locationObj = new CityLocation(req, resultsFromAPI.body.results[0]);
 
             //Store new location object in the database
-            addToDatabase(locationObj, response);
+            addToDatabase(locationObj, res);
 
-            response.status(200).send(locationObj);
+            res.status(200).send(locationObj);
           })
-          .catch((error) => {
-            Error(error, response);
+          .catch((err) => {
+            error(err, res);
           });
       }
     })
-    .catch(error => Error(error, response));
+    .catch(err => error(err, res));
 }
 function CityLocation(cityName, someData) {
   this.search_query = cityName;
@@ -47,19 +48,14 @@ function CityLocation(cityName, someData) {
 }
 
 //Function for adding the location object to the database
-function addToDatabase(locationObj, response) {
+function addToDatabase(locationObj, res) {
   let SQL = 'INSERT INTO locations(search_query, formatted_query, latitude, longitude) VALUES ($1, $2, $3, $4) RETURNING *';
   let safeValues = [locationObj.search_query, locationObj.formatted_query, locationObj.latitude, locationObj.longitude];
   client.query(SQL, safeValues)
     .then(results => {
-      response.status(200).json(results);
+      res.status(200).json(results);
     })
-    .catch(error => Error(error, response));
+    .catch(err => error(err, res));
 }
 
-//Response status for unexpected failures
-function Error(error, response) {
-  console.error(error);
-  return response.status(500).send('Oops! Something went wrong! Please try again in 401');
-}
 module.exports = handleLocation;

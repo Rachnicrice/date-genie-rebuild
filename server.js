@@ -3,9 +3,8 @@
 //dependencies:
 const express = require('express');
 require('dotenv').config();
-const superagent = require('superagent');
 const methodOverride = require('method-override');
-const client = require('modules/client.js');
+const client = require('./modules/client.js');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -13,6 +12,7 @@ const PORT = process.env.PORT || 3001;
 
 //import modules:
 const handleLocation = require('./modules/location');
+const error = require('./modules/error.js');
 
 app.use(express.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
@@ -33,20 +33,14 @@ app.get('/', (req, res) => {
 
 //error handlers:
 app.get('*', notFoundHandler);
-app.use(errorHandler);
+app.use(error);
 
 //routes:
 app.get('/location', handleLocation);
 
-
 function notFoundHandler(req, res) {
   res.status(404).send('huh?');
 }
-
-function errorHandler(error, req, res) {
-  res.status(500).send(error);
-}
-
 
 //turn on server:
 client.connect()
