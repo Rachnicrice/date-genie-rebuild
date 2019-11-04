@@ -1,16 +1,15 @@
 'use strict';
 
-const client = require('.server');
+const client = require('./client.js');
 const superagent = require('superagent');
 
-function handleLocation(request, response) {
-  const location = request.query.data;
+function handleLocation(req, res) {
+  const location = req.query.data;
   const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${location}&key=${process.env.GEOCODE_API_KEY}`;
-  queryDatabase(location, response, url);
+  queryDatabase(location, res, url);
 }
 
-
-function queryDatabase(request, response, url) {
+function queryDatabase(req, res, url) {
   let SQL = `SELECT * FROM locations WHERE search_query=$1`;
   let value = [request];
   return client.query(SQL, value)

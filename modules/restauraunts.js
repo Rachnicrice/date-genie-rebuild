@@ -1,5 +1,6 @@
 'use strict';
 
+const client = require('./client.js');
 const superagent = require('superagent');
 require('dotenv').config();
 
