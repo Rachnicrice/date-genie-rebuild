@@ -4,7 +4,7 @@ const superagent = require('superagent');
 require('dotenv').config();
 
 function handleYelp(req, res, locationObj) {
-  const url = `https://api.yelp.com/v3/businesses/search?location=${locationObj.search_query}`;
+  const url = `https://api.yelp.com/v3/businesses/search?location=${locationObj.city}`;
   superagent.get(url).set(`Authorization`, `Bearer ${process.env.YELP_API_KEY}`)
     .then(resultsFromAPI => {
       //Creating an array yelp businesses and returning data to the webpage
@@ -12,7 +12,7 @@ function handleYelp(req, res, locationObj) {
         return new Business(businesses);
       });
       console.log(yelpData);
-      res.status(200).render('/search_results',yelpData);
+      res.status(200).render('pages/searchResults', {resultsArray: yelpData});
     })
     .catch((error) => {
       Error(error, res);
