@@ -1,9 +1,11 @@
 'use strict';
-console.log(`I'm handling things`)
+
+console.log(`I'm handling things`);
 
 const client = require('./client.js');
 const superagent = require('superagent');
 const error = require('./error.js');
+const handleRestaurants = require('./restauraunts.js');
 
 function handleLocation(req, res) {
   console.log('We are here: ');
@@ -26,7 +28,7 @@ function queryDatabase(req, res, url) {
       if (results.rowCount > 0) {
         console.log('from database', results.rows);
         //If found send to the front end
-        res.status(200).render('/search', results.rows[0]);
+        handleRestaurants(req, res, results.rows[0]);
       } else {
         console.log('getting data from API');
         //If data does not exist in database retrieve from API
@@ -35,11 +37,10 @@ function queryDatabase(req, res, url) {
             console.log(resultsFromAPI.body);
             //Create an object location and return to the front end
             const locationObj = new CityLocation(req, resultsFromAPI.body.results[0]);
+            handleRestaurants(req, res, locationObj);
 
             //Store new location object in the database
             addToDatabase(locationObj, res);
-
-            res.status(200).render(locationObj);
           })
           .catch((err) => {
             error(err, res);

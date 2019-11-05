@@ -32,6 +32,7 @@ app.get('/', (req, res) => {
 });
 app.get('/search', handleSearch);
 app.post('/search', handleLocation);
+app.get('/searchResults', renderSearch)
 
 
 //error handlers:

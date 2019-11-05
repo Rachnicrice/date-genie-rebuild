@@ -1,25 +1,37 @@
-// 'use strict';
+'use strict';
 
-// const client = require('./client.js');
-// const superagent = require('superagent');
-// const error = require('./error.js');
-// require('dotenv').config();
+const superagent = require('superagent');
+require('dotenv').config();
 
-// function handleYelp(req, res) {
-//   const zomatoObject = req.query.data;
-//   const url = `https://api.yelp.com/v3/businesses/search?location=${locationObj.search_query}`
+function handleYelp(req, res, locationObj) {
+  const url = `https://api.yelp.com/v3/businesses/search?location=${locationObj.search_query}`;
+  superagent.get(url).set(`Authorization`, `Bearer ${process.env.YELP_API_KEY}`)
+    .then(resultsFromAPI => {
+      //Creating an array yelp businesses and returning data to the webpage
+      const yelpData = resultsFromAPI.body.businesses.map(businesses => {
+        return new Business(businesses);
+      });
+      console.log(yelpData);
+      res.status(200).render('/search_results',yelpData);
+    })
+    .catch((error) => {
+      Error(error, res);
+    });
+}
 
-//   superagent.get(url).set(`Authorization`, `Bearer ${process.env.YELP_API_KEY}`)
-//     .then(resultsFromAPI => {
-//       console.log(resultsFromAPI.body);
-//       //Creating an array yelp businesses and returning data to the webpage
-//       const yelpData = resultsFromAPI.body.businesses.map(businesses => {
-//         return new Business(businesses);
-//       })
+//Response status for unexpected failures
+function Error(error, res) {
+  console.error(error);
+  return res.status(500).send('Oops! Something went wrong! Please try again in 401');
+}
 
-//       res.status(200).send(yelpData);
-//     })
-//     .catch((err => {
-//       error(err, res)
-//     })
-// }
+//Constructor function for data recieved from yelp API
+function Business(otherData) {
+  this.name = otherData.name;
+  this.image_url = otherData.image_url;
+  this.price = otherData.price;
+  this.rating = otherData.rating;
+  this.url = otherData.url;
+}
+
+module.exports = handleYelp;
