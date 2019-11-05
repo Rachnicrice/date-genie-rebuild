@@ -6,15 +6,20 @@ const superagent = require('superagent');
 const error = require('./error.js');
 
 function handleLocation(req, res) {
-  console.log(req)
-  const location = req.query.data;
+  console.log('We are here: ');
+
+  const location = req.body.search;
+  console.log(location);
+
   const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${location}&key=${process.env.GEOCODE_API_KEY}`;
   queryDatabase(location, res, url);
 }
 
 function queryDatabase(req, res, url) {
   let SQL = `SELECT * FROM location WHERE city=$1`;
+  console.log(SQL);
   let value = [req];
+  console.log(value);
   return client.query(SQL, value)
     .then(results => {
       //Check to see if location already exists in database
