@@ -32,7 +32,7 @@ app.get('/', (req, res) => {
 });
 app.get('/search', handleSearch);
 app.post('/searchResults', handleLocation);
-
+app.get('/todos', renderTodos);
 
 //error handlers:
 app.get('*', notFoundHandler);
@@ -45,6 +45,10 @@ function notFoundHandler(req, res) {
 //Page rendering functions
 function handleSearch (req, res) {
   res.render('pages/search');
+}
+
+function renderTodos (req, res) {
+  //Retrieve saved to-dos for user from database
 }
 
 
