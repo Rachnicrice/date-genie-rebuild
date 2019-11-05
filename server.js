@@ -31,8 +31,7 @@ app.get('/', (req, res) => {
   res.render('pages/index');
 });
 app.get('/search', handleSearch);
-app.post('/search', handleLocation);
-app.get('/searchResults', renderSearch)
+app.post('/searchResults', handleLocation);
 
 
 //error handlers:
@@ -44,7 +43,6 @@ function notFoundHandler(req, res) {
 }
 
 //Page rendering functions
-
 function handleSearch (req, res) {
   res.render('pages/search');
 }

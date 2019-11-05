@@ -12,7 +12,7 @@ function handleYelp(req, res, locationObj) {
         return new Business(businesses);
       });
       console.log(yelpData);
-      res.status(200).render('/search_results',yelpData);
+      res.status(200).render('pages/searchResults', {resultsArray: yelpData});
     })
     .catch((error) => {
       Error(error, res);
