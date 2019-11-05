@@ -22,3 +22,9 @@ https://github.com/Rachnicrice/date-genie/tree/master/models
 4. As a user, I want to be able to add and delete tasks that I've completed so that I can keep track of what needs to be done for my date.
 
 5. As a developer, I want to create and utilize partials to prevent many duplicates of code in my code base.
+
+
+### Resources:
+
+Used to create logo:
+https://www.canva.com/ 
