@@ -30,18 +30,25 @@ app.use(methodOverride((request, response) => {
 app.get('/', (req, res) => {
   res.render('pages/index');
 });
+app.get('/search', handleSearch);
+app.post('/search', handleLocation);
+app.get('/searchResults', renderSearch)
 
 
 //error handlers:
 app.get('*', notFoundHandler);
 app.use(error);
 
-//routes:
-app.get('/location', handleLocation);
-
 function notFoundHandler(req, res) {
   res.status(404).send('huh?');
 }
+
+//Page rendering functions
+
+function handleSearch (req, res) {
+  res.render('pages/search');
+}
+
 
 //turn on server:
 client.connect()
