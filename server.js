@@ -5,6 +5,7 @@ const express = require('express');
 require('dotenv').config();
 const methodOverride = require('method-override');
 const client = require('./modules/client.js');
+require('ejs');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -27,7 +28,7 @@ app.use(methodOverride((request, response) => {
 
 //routes
 app.get('/', (req, res) => {
-  res.send('I exist!');
+  res.render('pages/index');
 });
 
 
