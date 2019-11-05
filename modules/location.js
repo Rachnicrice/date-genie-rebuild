@@ -26,7 +26,7 @@ function queryDatabase(req, res, url) {
       if (results.rowCount > 0) {
         console.log('from database', results.rows);
         //If found send to the front end
-        res.status(200).render(results.rows[0]);
+        res.status(200).render('/search', results.rows[0]);
       } else {
         console.log('getting data from API');
         //If data does not exist in database retrieve from API

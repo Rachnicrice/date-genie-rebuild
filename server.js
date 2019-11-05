@@ -30,7 +30,7 @@ app.use(methodOverride((request, response) => {
 app.get('/', (req, res) => {
   res.render('pages/index');
 });
-app.get('/search', handleSearch)
+app.get('/search', handleSearch);
 app.post('/search', handleLocation);
 
 
