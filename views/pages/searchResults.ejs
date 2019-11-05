@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+
+<%- include('../layout/header') %>
+
+<body>
+
+  <section>
+    <% resultsArray.forEach( result => { %>
+      <%- include('../layout/detail', {result:result}) %>
+    <%})%>
+  </section>
+</body>
+
+<%- include('../layout/footer') %>
+
+</html>
