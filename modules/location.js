@@ -42,7 +42,6 @@ function queryDatabase(req, res, url) {
 }
 function CityLocation(cityName, someData) {
   this.search_query = cityName;
-  this.formatted_query = someData.formatted_address;
   this.latitude = someData.geometry.location.lat;
   this.longitude = someData.geometry.location.lng;
 }
