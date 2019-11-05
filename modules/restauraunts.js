@@ -12,7 +12,7 @@ function handleYelp(req, res, locationObj) {
       const yelpData = resultsFromAPI.body.businesses.map(restaurants => {
         return new Restaurant(restaurants);
       });
-      console.log(yelpData);
+      // console.log(yelpData);
       res.status(200).render('pages/searchResults', {resultsArray: yelpData});
 
     })
