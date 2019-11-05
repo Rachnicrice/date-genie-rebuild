@@ -20,6 +20,7 @@
   "homepage": "https://github.com/Rachnicrice/date-genie#readme",
   "dependencies": {
     "dotenv": "^8.2.0",
+    "ejs": "^2.7.1",
     "express": "^4.17.1",
     "method-override": "^3.0.0",
     "pg": "^7.12.1",
