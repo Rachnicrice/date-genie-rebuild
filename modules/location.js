@@ -27,7 +27,7 @@ function queryDatabase(req, res, url) {
         //If data does not exist in database retrieve from API
         superagent.get(url)
           .then(resultsFromAPI => {
-            console.log(resultsFromAPI.body)
+            console.log(resultsFromAPI.body);
             //Create an object location and return to the front end
             const locationObj = new CityLocation(req, resultsFromAPI.body.results[0]);
 
