@@ -3,7 +3,16 @@
 <%- include('../layout/header') %>
 
 <body>
-  
+
+  <main>
+    <h4>Search for Resturants</h4>
+
+    <form action="/search" method="POST">
+      <input type="text" name="search" placeholder="Enter your city">
+      <button type="submit">Find Resturants Near Me!</button>
+    </form>
+  </main>
+
 </body>
 
 <%- include('../layout/footer') %>
