@@ -14,6 +14,7 @@ const PORT = process.env.PORT || 3001;
 //import modules:
 const handleLocation = require('./modules/location');
 const error = require('./modules/error.js');
+const handleMovies = require('./modules/movie.js');
 
 app.use(express.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
@@ -35,7 +36,8 @@ app.post('/searchResults', handleLocation);
 app.post('/user', renderUser);
 app.get('/todos', renderTodos);
 app.get('/newAccount', handleNew);
-app.post('/addUser', addUser)
+app.post('/addUser', addUser);
+app.get('/getMovies', handleMovies);
 
 //error handlers:
 app.get('*', notFoundHandler);
