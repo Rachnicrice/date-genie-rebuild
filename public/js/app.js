@@ -6,7 +6,8 @@ $('.unhide').on('click', function () {
 
 $('nav > p > a').on('click', function () {
   $('nav').toggleClass('hide');
-})
+});
+
 
 function authenticateUser () {
   let username = localStorage.getItem('user');
@@ -24,9 +25,25 @@ function authenticateUser () {
 
 $('#login').on('click', function () {
   let user = $('.login > input').val();
-  localStorage.setItem('user', user)
+  localStorage.setItem('user', user);
+});
+
+
+
+$(document).ready(function ready() {
+  $('#btnin').click(function click() {
+    $('#container').append('<span><input type="checkbox" class="chck">' + $('#txtin').val() + '<br /></span>');
+
+    $('input:checkbox').click(function checkBox() {
+      var $this = $(this);
+      if (this.checked) {
+        $this.parent().addClass('completed');
+      } else {
+        $this.parent().removeClass('completed');
+      }
+    });
+  });
 });
 
 $(document).ready(authenticateUser());
-
 
