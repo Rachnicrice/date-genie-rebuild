@@ -1,26 +1,12 @@
 'use strict';
 
-$('.login').hide();
+$('nav').hide();
 
 $('.unhide').on('click', function () {
-  $('nav').toggleClass('hide');
+  console.log(`I'm clicked!`)
+  $('nav').fadeIn();
 });
 
 $('nav > p > a').on('click', function () {
-  $('nav').toggleClass('hide');
+  $('nav').fadeOut(10000);
 })
-
-function authenticateUser () {
-  if (localStorage.getItem('user')) {
-    $.get('/user', localStorage.getItem('user'))
-  } else {
-    $('.login').fadeIn();
-  }
-}
-
-$('#login').on('click', function () {
-  let user = $('.login > input').val();
-  localStorage.setItem('user', user)
-});
-
-authenticateUser();

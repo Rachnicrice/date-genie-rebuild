@@ -1,24 +1,13 @@
 header {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: center;
 }
 
 header > img {
   height: 20vw;
   width: 20vw;
-  align-self: flex-end;
-}
-
-article > img {
-  height: 20vw;
-  width: auto;
-  max-width: 100%;
-}
-
-.unhide {
-  margin: 4vw auto auto 2vw;
 }
 
 .menu {
@@ -26,14 +15,6 @@ article > img {
   height: 5px;
   background-color: black;
   margin: 4px 0;
-}
-
-.hide {
-  display: none;
-}
-
-.desktop {
-  display: none;
 }
 
 nav {
@@ -50,39 +31,6 @@ footer {
   line-height: 3em;
 }
 
-section {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  margin: auto;
-}
-
-article {
-  margin: 2vw 1vw;
-  width: 40vw;
-}
-
 @media screen and (min-width: 768px) {
-
-  header {
-    flex-direction: column-reverse;
-  }
-
-  .mobile {
-    display: none;
-  }
-
-  .menu {
-    display: none;
-  }
-
-  .desktop {
-    display: flex;
-  }
-
-  article {
-    width: 20vw;
-  }
 
 }
