@@ -65,9 +65,8 @@ function addToDatabase(locationObj, res) {
   let SQL = 'INSERT INTO locations (city, lat, long) VALUES ($1, $2, $3) RETURNING *';
   let safeValues = [locationObj.city, locationObj.lat, locationObj.long];
   client.query(SQL, safeValues)
-    .then(results => {
-      console.log(results)
-      res.status(200).json(results);
+    .then(() => {
+      console.log('Added to DB');
     })
     .catch(err => error(err, res));
 }
