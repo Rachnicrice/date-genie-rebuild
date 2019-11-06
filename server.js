@@ -31,11 +31,12 @@ app.use(methodOverride((request, response) => {
 
 //routes
 app.get('/', (req, res) => {
-  res.render('pages/index');
+  res.render('pages/index', {datesArray: 0, id: false});
 });
-app.get('/search', handleSearch);
+app.get('/:id/search', handleSearch);
 app.post('/searchResults', handleLocation);
-app.post('/user', renderUser);
+app.post('/user', lookupUser);
+app.get('/user/:id', renderHome)
 app.get('/todos', renderTodos);
 app.get('/newAccount', handleNew);
 app.post('/addUser', addUser);
@@ -52,8 +53,9 @@ function notFoundHandler(req, res) {
 }
 
 //Page rendering functions
-function handleSearch(req, res) {
-  res.render('pages/search');
+function handleSearch (req, res) {
+  let id = req.params.id
+  res.render('pages/search', {id:id});
 }
 function handleNew(req, res) {
   res.render('pages/newAccount');
@@ -63,26 +65,34 @@ function renderTodos(req, res) {
   //Retrieve saved to-dos for user from database
 }
 
-function list (req, res) {
-  res.render('pages/todo');
+function renderHome (req, res) {
+  let id = [req.params.id];
+  let SQL = `SELECT * FROM saved_dates WHERE user_is=$1`
+
+  client.query(SQL, id)
+    .then (results => {
+      let savedDates = results.rows;
+      res.status(200).render('pages/index', {datesArray: savedDates, id:id});
+    })
+    .catch(err => error(err, res));
 }
 
 //Function to check if user exists in database
-function renderUser(req, res) {
+function lookupUser (req, res) {
   let SQL = `SELECT * FROM users WHERE username=$1`;
   let safeValues = [req.body.username];
 
   client.query(SQL, safeValues)
     .then(results => {
       if (results.rowCount > 0) {
-        console.log(results);
         //get row id
-        //use id to query database for saved dates
-        //render the saved dates to home route
+        let safeValue = [results.rows[0].id]
+        res.redirect(`/user/${safeValue}`)
       } else {
         res.redirect('/newAccount');
       }
-    });
+    })
+    .catch(err => error(err, res));
 }
 
 //Add new user to database
