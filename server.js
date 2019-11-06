@@ -87,7 +87,7 @@ function renderUser(req, res) {
 
 //Add new user to database
 function addUser(req, res) {
-  let { username, password, kids, location } = req.body;
+  let { username, password, kids, location, } = req.body;
   let SQL = `INSERT INTO users (username, password, kids, location) VALUES ($1, $2, $3, $4) RETURNING *`;
   let safeValues = [username, password, kids, location];
 
