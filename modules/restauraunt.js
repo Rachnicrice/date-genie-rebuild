@@ -12,8 +12,7 @@ function handleYelp(req, res, locationObj) {
       const yelpData = resultsFromAPI.body.businesses.map(restaurants => {
         return new Restaurant(restaurants);
       });
-      console.log(yelpData);
-      res.status(200).render('pages/searchResults', {resultsArray: yelpData});
+      res.status(200).render('pages/searchResults', {resultsArray: yelpData,});
 
     })
     .catch((error) => {
@@ -29,9 +28,14 @@ function Error(error, res) {
 
 //Constructor function for data recieved from yelp API
 function Restaurant(otherData) {
+  let regex = /^(https:)/;
+  if(regex.test(otherData.image_url)) {
+    otherData.image_url.replace(regex, '');
+  }
+
   this.name = otherData.name;
   // eslint-disable-next-line camelcase
-  this.image_url = otherData.image_url;
+  this.img_url = otherData.image_url;
   this.price = otherData.price;
   this.rating = otherData.rating;
   this.url = otherData.url;

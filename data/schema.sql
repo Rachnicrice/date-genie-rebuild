@@ -7,7 +7,7 @@ CREATE TABLE locations (
 );
 
 INSERT INTO locations(city,lat,long)
-VALUES('Seattle', 47.6062, 122.3321);
+VALUES('seattle', 47.6062, 122.3321);
 
 
 DROP TABLE IF EXISTS users;
@@ -15,7 +15,7 @@ CREATE TABLE users (
   id SERIAL PRIMARY KEY,
   username VARCHAR (255),
   password VARCHAR (255),
-  kids BOOLEAN,
+  kids VARCHAR(255),
   location INTEGER,
   todos VARCHAR,
   FOREIGN KEY (location) REFERENCES locations (id) ON DELETE CASCADE
@@ -23,7 +23,7 @@ CREATE TABLE users (
 
 
 INSERT INTO users (username, password, kids, location, todos)
-VALUES('crummy', 'notCrumby', 'true', 1, 'blahdiddy, blah doddy' );
+VALUES('crummy', 'notCrumby', 'yes', 1, 'blahdiddy, blah doddy' );
 
 DROP TABLE IF EXISTS saved_dates;
 CREATE TABLE saved_dates (
