@@ -18,7 +18,7 @@ const error = require('./modules/error.js');
 const addToSavedDates = require('./modules/savedDates.js');
 // const handleMovies = require('./modules/movie.js');
 
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true, }));
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
 app.use(methodOverride((request, response) => {
@@ -41,6 +41,7 @@ app.get('/newAccount', handleNew);
 app.post('/addUser', addUser);
 app.post('/', addToSavedDates);
 // app.get('/getMovies', handleMovies);
+app.get('/todo', list);
 
 //error handlers:
 app.get('*', notFoundHandler);
