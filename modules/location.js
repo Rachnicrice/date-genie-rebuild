@@ -8,7 +8,7 @@ const error = require('./error.js');
 const handleYelp = require('./restauraunt.js');
 // const handleMovies = require('./movie.js');
 
-function handleLocation(req, res,) {
+function handleLocation(req, res) {
   console.log('We are here: ');
 
   const location = req.body.search;
@@ -21,7 +21,7 @@ function handleLocation(req, res,) {
 function queryDatabase(req, res, url) {
   let SQL = `SELECT * FROM locations WHERE city=$1`;
   let value = [req];
-  // console.log(value);
+  console.log('now we are here');
   return client.query(SQL, value)
     .then(results => {
       //Check to see if location already exists in database
