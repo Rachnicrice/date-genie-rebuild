@@ -65,7 +65,10 @@ function renderUser (req, res) {
   client.query(SQL, safeValues)
     .then ( results => {
       if (results.rowCount > 0) {
-        //Render their saved dates
+        console.log(results)
+        //get row id
+        //use id to query database for saved dates
+        //render the saved dates to home route
       } else {
         res.redirect('/newAccount')
       }
