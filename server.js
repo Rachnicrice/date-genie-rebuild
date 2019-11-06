@@ -34,7 +34,7 @@ app.get('/', (req, res) => {
   res.render('pages/index', {datesArray: 0, id: false});
 });
 app.get('/:id/search', handleSearch);
-app.post('/searchResults', handleLocation);
+app.post('/:id/searchResults', handleLocation);
 app.post('/user', lookupUser);
 app.get('/user/:id', renderHome)
 app.get('/todos', renderTodos);
@@ -42,7 +42,7 @@ app.get('/newAccount', handleNew);
 app.post('/addUser', addUser);
 app.post('/', addToSavedDates);
 // app.get('/getMovies', handleMovies);
-app.get('/todo', list);
+// app.get('/todo', list);
 
 //error handlers:
 app.get('*', notFoundHandler);

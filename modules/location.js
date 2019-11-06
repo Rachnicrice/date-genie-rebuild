@@ -10,15 +10,16 @@ const handleYelp = require('./restauraunt.js');
 
 function handleLocation(req, res) {
   console.log('We are here: ');
-
+  let id = [req.params.id];
   const location = req.body.search;
 
   const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${location}&key=${process.env.GEOCODE_API_KEY}`;
   console.log(url);
-  queryDatabase(location, res, url);
+  queryDatabase(location, res, url, id);
 }
 
-function queryDatabase(req, res, url) {
+function queryDatabase(req, res, url, id) {
+  console.log(id);
   let SQL = `SELECT * FROM locations WHERE city=$1`;
   let value = [req];
   console.log('now we are here');
@@ -26,9 +27,8 @@ function queryDatabase(req, res, url) {
     .then(results => {
       //Check to see if location already exists in database
       if (results.rowCount > 0) {
-        // console.log('from database', results.rows);
         //If found send to the front end
-        handleYelp(req, res, results.rows[0]);
+        handleYelp(req, res, results.rows[0], id);
         // handleMovies(req, res, results.rows[0]);
       } else {
         // console.log('getting data from API');
@@ -40,7 +40,7 @@ function queryDatabase(req, res, url) {
             const locationObj = new CityLocation(req, resultsFromAPI.body.results[0]);
             console.log(locationObj);
 
-            handleYelp(req, res, locationObj);
+            handleYelp(req, res, locationObj, id);
             // handleMovies(req, res, locationObj);
 
             //Store new location object in the database
@@ -61,11 +61,12 @@ function CityLocation(cityName, someData) {
 
 //Function for adding the location object to the database
 function addToDatabase(locationObj, res) {
+  console.log(locationObj)
   let SQL = 'INSERT INTO locations (city, lat, long) VALUES ($1, $2, $3) RETURNING *';
   let safeValues = [locationObj.city, locationObj.lat, locationObj.long];
   client.query(SQL, safeValues)
-    .then(results => {
-      res.status(200).json(results);
+    .then(() => {
+      console.log('Added to DB');
     })
     .catch(err => error(err, res));
 }
