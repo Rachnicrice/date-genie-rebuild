@@ -12,7 +12,8 @@ $('nav > p > a').on('click', function () {
 
 function authenticateUser () {
   if (localStorage.getItem('user')) {
-    $.get('/user', localStorage.getItem('user'))
+    $('.login > input').val(`${localStorage.getItem('user')}`)
+    $('#login').trigger('click');
   } else {
     $('.login').fadeIn();
   }
@@ -24,3 +25,5 @@ $('#login').on('click', function () {
 });
 
 authenticateUser();
+
+
