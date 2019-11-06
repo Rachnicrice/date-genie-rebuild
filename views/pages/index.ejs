@@ -9,6 +9,10 @@
     <button id="login">Login</button>
   </form>
 
+  <% if (datesArray) { %>
+    <%- include('../layout/saved') %>
+  <% } %>
+
 </body>
 
 <%- include('../layout/footer') %>

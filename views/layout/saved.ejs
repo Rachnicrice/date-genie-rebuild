@@ -1,0 +1,11 @@
+<section>
+  <% datesArray.forEach( date => { %>
+    <article>
+      <p><%=date.restaurant%></p>
+      <img src="<%=date.img_url%>" alt="image">
+      <p>Price: <%=date.budget%></p>
+      <p><a href="<%=date.link%>">visit website</a></p>
+      <button id="<%=date.restaurant%>">Edit Your Date!</button>
+    </article>
+  <%})%>
+</section>
