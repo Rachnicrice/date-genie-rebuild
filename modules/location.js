@@ -6,8 +6,9 @@ const client = require('./client.js');
 const superagent = require('superagent');
 const error = require('./error.js');
 const handleYelp = require('./restauraunt.js');
+const handleMovies = require('./movie.js');
 
-function handleLocation(req, res) {
+function handleLocation(req, res,) {
   console.log('We are here: ');
 
   const location = req.body.search;
@@ -28,6 +29,7 @@ function queryDatabase(req, res, url) {
         // console.log('from database', results.rows);
         //If found send to the front end
         handleYelp(req, res, results.rows[0]);
+        handleMovies(req, res, results.rows[0]);
       } else {
         // console.log('getting data from API');
         //If data does not exist in database retrieve from API
@@ -39,6 +41,7 @@ function queryDatabase(req, res, url) {
             console.log(locationObj);
 
             handleYelp(req, res, locationObj);
+            handleMovies(req, res, locationObj);
 
             //Store new location object in the database
             addToDatabase(locationObj, res);
