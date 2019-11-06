@@ -61,32 +61,32 @@ function renderTodos (req, res) {
 
 //Function to check if user exists in database
 function renderUser (req, res) {
-  let SQL = `SELECT * FROM users WHERE username=$1`
-  let safeValues = [req.body.username]
+  let SQL = `SELECT * FROM users WHERE username=$1`;
+  let safeValues = [req.body.username];
 
   client.query(SQL, safeValues)
     .then ( results => {
       if (results.rowCount > 0) {
-        console.log(results)
+        console.log(results);
         //get row id
         //use id to query database for saved dates
         //render the saved dates to home route
       } else {
-        res.redirect('/newAccount')
+        res.redirect('/newAccount');
       }
-    })
+    });
 }
 
 //Add new user to database
 function addUser (req, res) {
   let {username, password, kids, location} = req.body;
-  let SQL = `INSERT INTO users (username, password, kids, location) VALUES ($1, $2, $3, $4) RETURNING *`
+  let SQL = `INSERT INTO users (username, password, kids, location) VALUES ($1, $2, $3, $4) RETURNING *`;
   let safeValues = [username, password, kids, location];
 
   client.query(SQL, safeValues)
     .then (() => {
       res.redirect('/');
-    })
+    });
 }
 
 
