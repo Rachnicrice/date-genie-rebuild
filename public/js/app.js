@@ -1,15 +1,13 @@
 'use strict';
 
-$('nav').hide();
 $('.login').hide();
 
 $('.unhide').on('click', function () {
-  console.log(`I'm clicked!`)
-  $('nav').fadeIn();
+  $('nav').toggleClass('hide');
 });
 
 $('nav > p > a').on('click', function () {
-  $('nav').fadeOut(10000);
+  $('nav').toggleClass('hide');
 })
 
 function authenticateUser () {
