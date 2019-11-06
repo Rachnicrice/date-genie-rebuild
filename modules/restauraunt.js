@@ -3,6 +3,7 @@
 const superagent = require('superagent');
 require('dotenv').config();
 
+
 function handleYelp(req, res, locationObj) {
   const url = `https://api.yelp.com/v3/businesses/search?location=${locationObj.city}`;
 
@@ -11,8 +12,9 @@ function handleYelp(req, res, locationObj) {
       //Creating an array yelp businesses and returning data to the webpage
       const yelpData = resultsFromAPI.body.businesses.map(restaurants => {
         return new Restaurant(restaurants);
+        
       });
-      res.status(200).render('pages/searchResults', {resultsArray: yelpData,});
+      res.status(200).render('pages/searchResults', { resultsArray: yelpData, });
 
     })
     .catch((error) => {
@@ -29,16 +31,18 @@ function Error(error, res) {
 //Constructor function for data recieved from yelp API
 function Restaurant(otherData) {
   let regex = /^(https:)/;
-  if(regex.test(otherData.image_url)) {
+  if (regex.test(otherData.image_url)) {
     otherData.image_url.replace(regex, '');
   }
 
-  this.name = otherData.name;
+  this.restaurant = otherData.name;
   // eslint-disable-next-line camelcase
   this.img_url = otherData.image_url;
-  this.price = otherData.price;
+  this.budget = otherData.price;
   this.rating = otherData.rating;
-  this.url = otherData.url;
+  this.link_url = otherData.url;
+  this.address = otherData.display_address;
+  this.phone = otherData.display_phone;
 }
 
 module.exports = handleYelp;
