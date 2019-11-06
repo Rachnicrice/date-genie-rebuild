@@ -5,7 +5,7 @@ require('dotenv').config();
 
 function handleYelp(req, res, locationObj) {
   const url = `https://api.yelp.com/v3/businesses/search?location=${locationObj.city}`;
-  console.log(url);
+
   superagent.get(url).set(`Authorization`, `Bearer ${process.env.YELP_API_KEY}`)
     .then(resultsFromAPI => {
       //Creating an array yelp businesses and returning data to the webpage
