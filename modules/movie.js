@@ -5,8 +5,9 @@ console.log(`I'm doing movie things`);
 const superagent = require('superagent');
 const error = require('./error.js');
 
-function handleMovies(req, res) {
+function handleMovies(req, res, locationObj) {
   console.log('We are here: in movies');
+  console.log(locationObj);
   //TODO: use location search again to get location object (or pass the same object from a previous search). This is currently using hard coded values for seattle lat/long.
   const lat = 47.7543;
   const long = -122.1635;
