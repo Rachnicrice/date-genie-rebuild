@@ -37,7 +37,7 @@ app.post('/user', renderUser);
 app.get('/todos', renderTodos);
 app.get('/newAccount', handleNew);
 app.post('/addUser', addUser);
-app.get('/getMovies', handleMovies);
+// app.get('/getMovies', handleMovies);
 
 //error handlers:
 app.get('*', notFoundHandler);
