@@ -62,7 +62,7 @@ function addToDatabase(locationObj, res) {
   let safeValues = [locationObj.city, locationObj.lat, locationObj.long];
   client.query(SQL, safeValues)
     .then(results => {
-      // res.status(200).json(results);
+      res.status(200).json(results);
     })
     .catch(err => error(err, res));
 }
