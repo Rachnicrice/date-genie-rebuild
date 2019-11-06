@@ -59,6 +59,10 @@ function renderTodos (req, res) {
   //Retrieve saved to-dos for user from database
 }
 
+function list (req, res) {
+  res.render('pages/todo');
+}
+
 //Function to check if user exists in database
 function renderUser (req, res) {
   let SQL = `SELECT * FROM users WHERE username=$1`;
