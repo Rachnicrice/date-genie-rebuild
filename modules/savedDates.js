@@ -7,8 +7,9 @@ const client = require('./client.js');
 console.log('In savedDates');
 
 function addToSavedDates(req, res) {
+  console.log('adding things')
   let { restaurant, budget, link_url, img_url, rating, phone } = req.body;
-  let SQL = 'INSERT INTO saved_dates (restaurant, budget, link_url, img_url, rating, phone ) VALUES ($1, $2, $3, $4, $5);';
+  let SQL = 'INSERT INTO saved_dates (restaurant, budget, link_url, img_url, rating, phone) VALUES ($1, $2, $3, $4, $5, $6);';
   let safeValues = [restaurant, budget, link_url, img_url, rating, phone];
 
   return client.query(SQL, safeValues)
