@@ -12,7 +12,6 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 
 
-
 //import modules:
 const handleLocation = require('./modules/location');
 const error = require('./modules/error.js');
@@ -37,16 +36,14 @@ app.get('/:id/search', handleSearch);
 app.post('/:id/searchResults', handleLocation);
 app.post('/user', lookupUser);
 app.get('/user/:id', renderHome);
-app.get('/todos', renderTodos);
 app.get('/newAccount', handleNew);
 app.post('/addUser', addUser);
-// app.post('/', addToSavedDates);
-// app.get('/getMovies', handleMovies);
 app.post('/:id/makeDate', addNewDate);
 app.post('/:id/editDate', editExistingDate);
 app.post('/:id/editADate', editDate);
 app.get('/todo/:id', list);
 app.post('/:id/deleteDate', deleteDate);
+app.get('/:id/aboutYourGenies', meetGenies);
 
 //error handlers:
 app.get('*', notFoundHandler);
@@ -62,11 +59,12 @@ function handleSearch (req, res) {
   res.render('pages/search', {id:id});
 }
 function handleNew(req, res) {
-  res.render('pages/newAccount');
+  res.render('pages/newAccount', {id:true});
 }
 
-function renderTodos(req, res) {
-  //Retrieve saved to-dos for user from database
+function meetGenies (req, res) {
+  let id = req.params.id;
+  res.render('pages/aboutUs', {id:id});
 }
 
 function list( req, res) {
@@ -157,13 +155,22 @@ function editExistingDate (req, res) {
 
 //Add new user to database
 function addUser(req, res) {
-  let { username, password, kids, location, } = req.body;
-  let SQL = `INSERT INTO users (username, password, kids, location) VALUES ($1, $2, $3, $4) RETURNING *`;
-  let safeValues = [username, password, kids, location];
+  let { username, password, kids } = req.body;
+  let SQL = `INSERT INTO users (username, password, kids) VALUES ($1, $2, $3) RETURNING *`;
+
+  if (kids === 'false') {
+    kids = false;
+  } else {
+    kids = true;
+  }
+
+  let safeValues = [username, password, kids];
+
+  console.log(safeValues)
 
   client.query(SQL, safeValues)
-    .then(() => {
-      res.redirect('/');
+    .then( results => {
+      res.redirect(`/user/${results.rows[0].id}`);
     })
     .catch(error => {
       Error(error, res);
