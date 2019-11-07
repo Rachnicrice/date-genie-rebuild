@@ -193,8 +193,6 @@ function deleteDate (req, res) {
     });
 }
 
-
-
 //turn on server:
 client.connect()
   .then(() => {
