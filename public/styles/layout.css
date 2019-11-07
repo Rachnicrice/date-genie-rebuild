@@ -1,9 +1,11 @@
 html {
-  background-color: rgb(116, 111, 111);
+  background-color: rgb(155, 148, 148);
 }
 
 body {
   background-color: white;
+  border-radius: 2%;
+  border: black solid 2px;
 }
 
 header {
@@ -11,18 +13,21 @@ header {
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
+  margin: 1vw;
+  height: 20vw;
 }
 
 header > img {
   height: 20vw;
   width: 20vw;
   align-self: flex-end;
+  border-radius: 2%;
  
 }
 
 article {
-  font-family: 'Archivo Narrow', sans-serif;
-  background-color: rgb(116, 111, 111);
+  font-family: 'Lato', sans-serif;
+  background-color: rgb(155, 148, 148);
   border-radius: 10%;
   color: black;
   margin: 1vw auto;
@@ -33,7 +38,7 @@ article {
 
 article a {
   text-decoration: none;
-  color:  rgb(116, 111, 111);
+  color:  rgb(155, 148, 148);
 }
 
 article > img {
@@ -41,15 +46,16 @@ article > img {
   width: 20vw;
   max-width: 100%;
   border-radius: 10%;
-  margin: 2vw 1vw;
+  margin-top: 1vw;
+  margin-bottom: 1vw;
 }
 
 .mobile {
-  background-color: rgb(116, 111, 111);
-  color: black;
-  text-decoration: none;
-  color: black;
+  background-color: black;
+  color: rgb(155, 148, 148);
+  
 }
+
 
 .unhide {
   margin: 4vw auto auto 2vw;
@@ -74,10 +80,16 @@ nav {
 
 nav > p > a {
   text-decoration: none;
+  color: rgb(155, 148, 148);
+  font-size: 1.6em;
+  font-family: 'Archivo Narrow', sans-serif;
 }
 
-nav .desktop {
+.desktop {
   display: none;
+  padding: 1em;
+  background-color: black;
+  color: rgb(116, 111, 111);
 }
 
 footer {
@@ -107,8 +119,8 @@ section {
 
   .desktop {
     display: flex;
-    background-color: rgb(116, 111, 111);
-    color: black;
+    background-color: black;
+    color: rgb(116, 111, 111);
   }
   
   article {
