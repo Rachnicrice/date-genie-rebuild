@@ -5,7 +5,7 @@ console.log(`I'm handling things`);
 const client = require('./client.js');
 const superagent = require('superagent');
 const error = require('./error.js');
-const handleYelp = require('./restauraunt.js');
+const handleYelp = require('./restauraunts.js');
 // const handleMovies = require('./movie.js');
 
 function handleLocation(req, res) {
