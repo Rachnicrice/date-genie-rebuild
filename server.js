@@ -36,7 +36,6 @@ app.get('/:id/search', handleSearch);
 app.post('/:id/searchResults', handleLocation);
 app.post('/user', lookupUser);
 app.get('/user/:id', renderHome);
-app.get('/todos', renderTodos);
 app.get('/newAccount', handleNew);
 app.post('/addUser', addUser);
 app.post('/:id/makeDate', addNewDate);
@@ -44,6 +43,7 @@ app.post('/:id/editDate', editExistingDate);
 app.post('/:id/editADate', editDate);
 app.get('/todo/:id', list);
 app.post('/:id/deleteDate', deleteDate);
+app.get('/:id/aboutYourGenies', meetGenies);
 
 //error handlers:
 app.get('*', notFoundHandler);
@@ -62,8 +62,9 @@ function handleNew(req, res) {
   res.render('pages/newAccount', {id:true});
 }
 
-function renderTodos(req, res) {
-  //Retrieve saved to-dos for user from database
+function meetGenies (req, res) {
+  let id = req.params.id;
+  res.render('pages/aboutUs', {id:id});
 }
 
 function list( req, res) {
