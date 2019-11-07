@@ -1,3 +1,9 @@
+html {
+  background-color: rgb(116, 111, 111);
+}
+body {
+  background-color: white;
+}
 header {
   display: flex;
   flex-direction: row;
@@ -9,12 +15,40 @@ header > img {
   height: 20vw;
   width: 20vw;
   align-self: flex-end;
+ 
+}
+
+article {
+  font-family: 'Archivo Narrow', sans-serif;
+  background-color: rgb(116, 111, 111);
+  border-radius: 10%;
+  color: black;
+  margin: 1vw auto;
+  text-align: center;
+  padding: 1vw;
+ 
+}
+
+article a {
+  text-decoration: none;
+  color:  rgb(116, 111, 111);
 }
 
 article > img {
   height: 20vw;
-  width: auto;
+  width: 20vw;
   max-width: 100%;
+  border-radius: 10%;
+}
+
+.mobile_hide {
+  background-color: rgb(116, 111, 111);
+  color: black
+}
+
+.desktop {
+    background-color: rgb(116, 111, 111);
+    color: black
 }
 
 .unhide {
