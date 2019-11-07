@@ -62,7 +62,7 @@ function handleSearch (req, res) {
   res.render('pages/search', {id:id});
 }
 function handleNew(req, res) {
-  res.render('pages/newAccount');
+  res.render('pages/newAccount', {id:true});
 }
 
 function renderTodos(req, res) {
@@ -162,8 +162,8 @@ function addUser(req, res) {
   let safeValues = [username, password, kids, location];
 
   client.query(SQL, safeValues)
-    .then(() => {
-      res.redirect('/');
+    .then( results => {
+      res.redirect(`/user/${results.rows[0].id}`);
     })
     .catch(error => {
       Error(error, res);
