@@ -36,15 +36,17 @@ app.get('/', (req, res) => {
 app.get('/:id/search', handleSearch);
 app.post('/:id/searchResults', handleLocation);
 app.post('/user', lookupUser);
-app.get('/user/:id', renderHome)
+app.get('/user/:id', renderHome);
 app.get('/todos', renderTodos);
 app.get('/newAccount', handleNew);
 app.post('/addUser', addUser);
 // app.post('/', addToSavedDates);
 // app.get('/getMovies', handleMovies);
 app.post('/:id/makeDate', addNewDate);
-app.post('/:id/editADate', editDate)
+app.post('/:id/editDate', editExistingDate);
+app.post('/:id/editADate', editDate);
 app.get('/todo/:id', list);
+app.post('/:id/deleteDate', deleteDate);
 
 //error handlers:
 app.get('*', notFoundHandler);
@@ -125,7 +127,6 @@ function addNewDate (req, res) {
 function editDate (req, res) {
   let user = req.params.id;
   let { id, restaurant, rating, budget, img_url, address, phone, link_url } = req.body;
-  console.log('editing dates');
 
   let SQL = `UPDATE saved_dates SET restaurant=$1, budget=$2, link_url=$3, img_url=$4, rating=$5, address=$6, phone=$7 WHERE id=$8;`;
   let safeValues = [restaurant, budget, link_url, img_url, parseInt(rating), address, phone, id];
@@ -140,6 +141,20 @@ function editDate (req, res) {
     });
 }
 
+function editExistingDate (req, res) {
+  let user = req.params.id;
+  let { id } = req.body;
+
+  let SQL = `SELECT * FROM saved_dates WHERE id=$1;`;
+  let safeValue = [id];
+
+  client.query(SQL, safeValue)
+    .then( results => {
+      res.render('pages/makeADate', {date:results.rows[0], id:user});
+      res.redirect(`/${id}/editADate`);
+    })
+}
+
 //Add new user to database
 function addUser(req, res) {
   let { username, password, kids, location, } = req.body;
@@ -149,6 +164,22 @@ function addUser(req, res) {
   client.query(SQL, safeValues)
     .then(() => {
       res.redirect('/');
+    })
+    .catch(error => {
+      Error(error, res);
+    });
+}
+
+function deleteDate (req, res) {
+  let user = req.params.id;
+  let { id } = req.body;
+
+  let SQL = `DELETE FROM saved_dates WHERE id=$1`
+  let safeValue = [id];
+
+  client.query(SQL, safeValue)
+    .then ( () => {
+      res.redirect(`/user/${user}`)
     })
     .catch(error => {
       Error(error, res);
