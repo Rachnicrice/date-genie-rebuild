@@ -11,7 +11,6 @@ $('nav > p > a').on('click', function () {
 
 function authenticateUser () {
   let username = localStorage.getItem('user');
-  console.log(username)
   if (username) {
     let location = window.location.pathname;
     if (location === '/') {

@@ -14,7 +14,6 @@ function handleYelp(req, res, locationObj, id) {
 
       });
       res.status(200).render('pages/searchResults', {resultsArray:yelpData, id:id});
-      console.log(yelpData)
     })
     .catch((error) => {
       Error(error, res);

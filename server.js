@@ -41,8 +41,9 @@ app.get('/user/:id', renderHome)
 app.get('/todos', renderTodos);
 app.get('/newAccount', handleNew);
 app.post('/addUser', addUser);
-app.post('/', addToSavedDates);
+// app.post('/', addToSavedDates);
 // app.get('/getMovies', handleMovies);
+app.post('/:id/makeDate', addNewDate);
 app.get('/todo/:id', list);
 
 //error handlers:
@@ -99,6 +100,23 @@ function lookupUser (req, res) {
       }
     })
     .catch(err => error(err, res));
+}
+
+function addNewDate (req, res) {
+  let id = req.params.id;
+  let { restaurant, rating, budget, img_url, address, phone, link_url } = req.body;
+
+  let SQL = 'INSERT INTO saved_dates (user_is, restaurant, budget, link_url, img_url, rating, address, phone) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *;';
+  let safeValues = [id, restaurant, budget, link_url, img_url, parseInt(rating), address, phone];
+
+  return client.query(SQL, safeValues)
+    .then ( results => {
+      console.log(results);
+      res.redirect(`/user/${id}`);
+    })
+    .catch(error => {
+      Error(error, res);
+    });
 }
 
 //Add new user to database

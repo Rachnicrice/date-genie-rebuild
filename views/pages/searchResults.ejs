@@ -7,13 +7,12 @@
 
   <main>
 
-    <section>
-      <% resultsArray.forEach( result => { %>
-      <%- include('../layout/detail', {result:result}) %>
-      <%})%>
-    </section>
 
-  </main>
+  <section>
+    <% resultsArray.forEach( result => { %>
+      <%- include('../layout/detail', {result:result, id:id}) %>
+    <%})%>
+  </section>
 
 </body>
 
