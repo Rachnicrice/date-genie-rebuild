@@ -13,23 +13,23 @@
     <div class="menu"></div>
     <div class="menu"></div>
   </div>
-  
-  
+
+
   <img src="/styles/images/logo.png" alt="dateGenie logo">
-  
+
 </header>
 
 <% if (id) { %>
-  <nav class="mobile hide">
-    <p><a href="/">Saved Dates</a></p>
-    <p><a href="/<%=id%>/search">Search for Resturants</a></p>
-    <p><a href="/">Search for Movies</a></p>
-    <p><a href="/">To-Do Lists</a></p>
-  </nav>
-  <nav class="desktop">
-    <p><a href="/">Saved Dates</a></p>
-    <p><a href="/<%=id%>/search">Search for Resturants</a></p>
-    <p><a href="/">Search for Movies</a></p>
-    <p><a href="/">To-Do Lists</a></p>
-  </nav>
+<nav class="mobile hide">
+  <p><a href="/">Saved Dates</a></p>
+  <p><a href="/<%=id%>/search">Search for Resturants</a></p>
+  <p><a href="/">Search for Movies</a></p>
+  <p><a href="/todo/<%=id%>">To-Do Lists</a></p>
+</nav>
+<nav class="desktop">
+  <p><a href="/">Saved Dates</a></p>
+  <p><a href="/<%=id%>/search">Search for Resturants</a></p>
+  <p><a href="/">Search for Movies</a></p>
+  <p><a href="/todo/<%=id%>">To-Do Lists</a></p>
+</nav>
 <% } %>
