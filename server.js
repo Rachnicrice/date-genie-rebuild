@@ -155,8 +155,6 @@ function addUser(req, res) {
     });
 }
 
-
-
 //turn on server:
 client.connect()
   .then(() => {
