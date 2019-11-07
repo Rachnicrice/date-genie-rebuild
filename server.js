@@ -12,7 +12,6 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 
 
-
 //import modules:
 const handleLocation = require('./modules/location');
 const error = require('./modules/error.js');
@@ -40,8 +39,6 @@ app.get('/user/:id', renderHome);
 app.get('/todos', renderTodos);
 app.get('/newAccount', handleNew);
 app.post('/addUser', addUser);
-// app.post('/', addToSavedDates);
-// app.get('/getMovies', handleMovies);
 app.post('/:id/makeDate', addNewDate);
 app.post('/:id/editDate', editExistingDate);
 app.post('/:id/editADate', editDate);
@@ -157,9 +154,18 @@ function editExistingDate (req, res) {
 
 //Add new user to database
 function addUser(req, res) {
-  let { username, password, kids, location, } = req.body;
-  let SQL = `INSERT INTO users (username, password, kids, location) VALUES ($1, $2, $3, $4) RETURNING *`;
-  let safeValues = [username, password, kids, location];
+  let { username, password, kids } = req.body;
+  let SQL = `INSERT INTO users (username, password, kids) VALUES ($1, $2, $3) RETURNING *`;
+
+  if (kids === 'false') {
+    kids = false;
+  } else {
+    kids = true;
+  }
+
+  let safeValues = [username, password, kids];
+
+  console.log(safeValues)
 
   client.query(SQL, safeValues)
     .then( results => {
