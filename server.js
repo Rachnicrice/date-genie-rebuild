@@ -1,3 +1,4 @@
+/* eslint-disable comma-dangle */
 'use strict';
 
 //dependencies:
@@ -42,7 +43,7 @@ app.get('/newAccount', handleNew);
 app.post('/addUser', addUser);
 app.post('/', addToSavedDates);
 // app.get('/getMovies', handleMovies);
-// app.get('/todo', list);
+app.get('/todo/:id', list);
 
 //error handlers:
 app.get('*', notFoundHandler);
@@ -54,7 +55,7 @@ function notFoundHandler(req, res) {
 
 //Page rendering functions
 function handleSearch (req, res) {
-  let id = req.params.id
+  let id = req.params.id;
   res.render('pages/search', {id:id});
 }
 function handleNew(req, res) {
@@ -65,9 +66,14 @@ function renderTodos(req, res) {
   //Retrieve saved to-dos for user from database
 }
 
+function list( req, res) {
+  let id = req.params.id;
+  res.render('pages/todo', {id:id});
+}
+
 function renderHome (req, res) {
   let id = [req.params.id];
-  let SQL = `SELECT * FROM saved_dates WHERE user_is=$1`
+  let SQL = `SELECT * FROM saved_dates WHERE user_is=$1`;
 
   client.query(SQL, id)
     .then (results => {

@@ -35,7 +35,7 @@ $(document).ready(function ready() {
     $('#container').append('<span><input type="checkbox" class="chck">' + $('#txtin').val() + '<br /></span>');
 
     $('input:checkbox').click(function checkBox() {
-      var $this = $(this);
+      let $this = $(this);
       if (this.checked) {
         $this.parent().addClass('completed');
       } else {
