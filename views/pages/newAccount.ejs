@@ -1,18 +1,13 @@
 <!DOCTYPE html>
 <html>
     <link href="https://fonts.googleapis.com/css?family=Archivo+Narrow&display=swap" rel="stylesheet">
-
 <body>
   <%- include('../layout/header') %>
-
   <main>
 
+    <%- include('../layout/create') %>
 
-  <section>
-    <% resultsArray.forEach( result => { %>
-      <%- include('../layout/detail', {result:result, id:id}) %>
-    <%})%>
-  </section>
+  </main>
 
 </body>
 

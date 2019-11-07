@@ -1,11 +1,19 @@
 <article>
-  <p>Name: <%=result.name%></p>
+  <p><%=result.restaurant%></p>
   <p>Rating: <%=result.rating%></p>
-  <img src="<%=result.img_url%>" alt="restaurant image">
-  <p>Price: <%=result.price%></p>
-  <p><a href="<%=result.link%>">visit website</a>
-  <button id="<%=result.name%>">Make a Date!</button>
-  </p>
-
-
+  <p>Price: <%=result.budget%></p>
+  <img src="<%=result.img_url%>" alt="image">
+  <p>Address: <%=result.address%></p>
+  <p>Phone: <%=result.phone%></p>
+  <p><a href="<%=result.link_url%>">visit website</a></p>
+  <form action="/<%=id%>/makeDate" method="POST">
+    <input type="hidden" name="restaurant" value="<%=result.restaurant%>">
+    <input type="hidden" name="rating" value="<%=result.rating%>">
+    <input type="hidden" name="budget" value="<%=result.budget%>">
+    <input type="hidden" name="img_url" value="<%=result.img_url%>">
+    <input type="hidden" name="address" value="<%=result.address%>">
+    <input type="hidden" name="phone" value="<%=result.phone%>">
+    <input type="hidden" name="link_url" value="<%=result.link_url%>">
+    <button id="newdate">Make a Date!</button>
+  </form>
 </article>

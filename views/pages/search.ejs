@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 
-<%- include('../layout/header') %>
-
+<link href="https://fonts.googleapis.com/css?family=Archivo+Narrow&display=swap" rel="stylesheet">
 <body>
+  <%- include('../layout/header') %>
 
   <main>
     <h4>Search for Resturants</h4>
 
-    <form action="/searchResults" method="POST">
+    <form action="/<%=id%>/searchResults" method="POST">
       <input type="text" name="search" placeholder="Enter your city">
       <button type="submit">Find Resturants Near Me!</button>
     </form>
@@ -16,4 +16,5 @@
 </body>
 
 <%- include('../layout/footer') %>
+
 </html>

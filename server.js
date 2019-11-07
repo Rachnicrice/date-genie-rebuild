@@ -1,3 +1,4 @@
+/* eslint-disable comma-dangle */
 'use strict';
 
 //dependencies:
@@ -11,11 +12,14 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 
 
+
 //import modules:
 const handleLocation = require('./modules/location');
 const error = require('./modules/error.js');
+const addToSavedDates = require('./modules/savedDates.js');
+// const handleMovies = require('./modules/movie.js');
 
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true, }));
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
 app.use(methodOverride((request, response) => {
@@ -28,11 +32,19 @@ app.use(methodOverride((request, response) => {
 
 //routes
 app.get('/', (req, res) => {
-  res.render('pages/index');
+  res.render('pages/index', {datesArray: 0, id: false});
 });
-app.get('/search', handleSearch);
-app.post('/searchResults', handleLocation);
+app.get('/:id/search', handleSearch);
+app.post('/:id/searchResults', handleLocation);
+app.post('/user', lookupUser);
+app.get('/user/:id', renderHome)
 app.get('/todos', renderTodos);
+app.get('/newAccount', handleNew);
+app.post('/addUser', addUser);
+// app.post('/', addToSavedDates);
+// app.get('/getMovies', handleMovies);
+app.post('/:id/makeDate', addNewDate);
+app.get('/todo/:id', list);
 
 //error handlers:
 app.get('*', notFoundHandler);
@@ -44,12 +56,81 @@ function notFoundHandler(req, res) {
 
 //Page rendering functions
 function handleSearch (req, res) {
-  res.render('pages/search');
+  let id = req.params.id;
+  res.render('pages/search', {id:id});
+}
+function handleNew(req, res) {
+  res.render('pages/newAccount');
 }
 
-function renderTodos (req, res) {
+function renderTodos(req, res) {
   //Retrieve saved to-dos for user from database
 }
+
+function list( req, res) {
+  let id = req.params.id;
+  res.render('pages/todo', {id:id});
+}
+
+function renderHome (req, res) {
+  let id = [req.params.id];
+  let SQL = `SELECT * FROM saved_dates WHERE user_is=$1`;
+
+  client.query(SQL, id)
+    .then (results => {
+      let savedDates = results.rows;
+      res.status(200).render('pages/index', {datesArray: savedDates, id:id});
+    })
+    .catch(err => error(err, res));
+}
+
+//Function to check if user exists in database
+function lookupUser (req, res) {
+  let SQL = `SELECT * FROM users WHERE username=$1`;
+  let safeValues = [req.body.username];
+
+  client.query(SQL, safeValues)
+    .then(results => {
+      if (results.rowCount > 0) {
+        //get row id
+        let safeValue = [results.rows[0].id]
+        res.redirect(`/user/${safeValue}`)
+      } else {
+        res.redirect('/newAccount');
+      }
+    })
+    .catch(err => error(err, res));
+}
+
+function addNewDate (req, res) {
+  let id = req.params.id;
+  let { restaurant, rating, budget, img_url, address, phone, link_url } = req.body;
+
+  let SQL = 'INSERT INTO saved_dates (user_is, restaurant, budget, link_url, img_url, rating, address, phone) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *;';
+  let safeValues = [id, restaurant, budget, link_url, img_url, parseInt(rating), address, phone];
+
+  return client.query(SQL, safeValues)
+    .then ( results => {
+      console.log(results);
+      res.redirect(`/user/${id}`);
+    })
+    .catch(error => {
+      Error(error, res);
+    });
+}
+
+//Add new user to database
+function addUser(req, res) {
+  let { username, password, kids, location, } = req.body;
+  let SQL = `INSERT INTO users (username, password, kids, location) VALUES ($1, $2, $3, $4) RETURNING *`;
+  let safeValues = [username, password, kids, location];
+
+  client.query(SQL, safeValues)
+    .then(() => {
+      res.redirect('/');
+    });
+}
+
 
 
 //turn on server:
