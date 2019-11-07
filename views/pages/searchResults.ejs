@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <html>
-
-<%- include('../layout/header') %>
+    <link href="https://fonts.googleapis.com/css?family=Archivo+Narrow&display=swap" rel="stylesheet">
 
 <body>
+  <%- include('../layout/header') %>
+
+  <main>
+
 
   <section>
     <% resultsArray.forEach( result => { %>
       <%- include('../layout/detail', {result:result, id:id}) %>
     <%})%>
   </section>
-  
+
 </body>
 
 <%- include('../layout/footer') %>
