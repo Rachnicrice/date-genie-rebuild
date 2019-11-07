@@ -5,7 +5,7 @@
       <img src="<%=date.img_url%>" alt="image">
       <p>Price: <%=date.budget%></p>
       <p><a href="<%=date.link%>">visit website</a></p>
-      <form action="/<%=id%>/editADate" method="POST">
+      <form action="/<%=id%>/editDate" method="POST">
         <input type="hidden" name="id" value="<%=date.id%>">
           <input type="hidden" name="restaurant" value="<%=date.restaurant%>">
           <input type="hidden" name="rating" value="<%=date.rating%>">
@@ -14,10 +14,11 @@
           <input type="hidden" name="address" value="<%=date.address%>">
           <input type="hidden" name="phone" value="<%=date.phone%>">
           <input type="hidden" name="link_url" value="<%=date.link_url%>">
-          <button id="editdate">Edit Date</button>
+          <button>Edit Date</button>
         </form>
-        <form action="/<%=id%>/deleteDate">
+        <form action="/<%=id%>/deleteDate" method="POST">
           <input type="hidden" name="id" value="<%=date.id%>">
+          <button>Delete This Date</button>
         </form>
     </article>
   <%})%>
