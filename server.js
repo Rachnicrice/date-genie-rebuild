@@ -36,14 +36,14 @@ app.get('/', (req, res) => {
 app.get('/:id/search', handleSearch);
 app.post('/:id/searchResults', handleLocation);
 app.post('/user', lookupUser);
-app.get('/user/:id', renderHome)
+app.get('/user/:id', renderHome);
 app.get('/todos', renderTodos);
 app.get('/newAccount', handleNew);
 app.post('/addUser', addUser);
 // app.post('/', addToSavedDates);
 // app.get('/getMovies', handleMovies);
 app.post('/:id/makeDate', addNewDate);
-app.post('/:id/editADate', editDate)
+app.post('/:id/editADate', editDate);
 app.get('/todo/:id', list);
 
 //error handlers:
@@ -94,8 +94,8 @@ function lookupUser (req, res) {
     .then(results => {
       if (results.rowCount > 0) {
         //get row id
-        let safeValue = [results.rows[0].id]
-        res.redirect(`/user/${safeValue}`)
+        let safeValue = [results.rows[0].id];
+        res.redirect(`/user/${safeValue}`);
       } else {
         res.redirect('/newAccount');
       }
