@@ -14,12 +14,10 @@ function handleLocation(req, res) {
   const location = req.body.search;
 
   const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${location}&key=${process.env.GEOCODE_API_KEY}`;
-  console.log(url);
   queryDatabase(location, res, url, id);
 }
 
 function queryDatabase(req, res, url, id) {
-  console.log(id);
   let SQL = `SELECT * FROM locations WHERE city=$1`;
   let value = [req];
   console.log('now we are here');
@@ -31,14 +29,11 @@ function queryDatabase(req, res, url, id) {
         handleYelp(req, res, results.rows[0], id);
         // handleMovies(req, res, results.rows[0]);
       } else {
-        // console.log('getting data from API');
         //If data does not exist in database retrieve from API
         superagent.get(url)
           .then(resultsFromAPI => {
-            // console.log(resultsFromAPI.body);
             //Create an object location and return to the front end
             const locationObj = new CityLocation(req, resultsFromAPI.body.results[0]);
-            console.log(locationObj);
 
             handleYelp(req, res, locationObj, id);
             // handleMovies(req, res, locationObj);
@@ -61,7 +56,6 @@ function CityLocation(cityName, someData) {
 
 //Function for adding the location object to the database
 function addToDatabase(locationObj, res) {
-  console.log(locationObj)
   let SQL = 'INSERT INTO locations (city, lat, long) VALUES ($1, $2, $3) RETURNING *';
   let safeValues = [locationObj.city, locationObj.lat, locationObj.long];
   client.query(SQL, safeValues)

@@ -7,7 +7,7 @@
 
   <section>
     <% resultsArray.forEach( result => { %>
-      <%- include('../layout/detail', {result:result}) %>
+      <%- include('../layout/detail', {result:result, id:id}) %>
     <%})%>
   </section>
   
