@@ -45,5 +45,6 @@ $(document).ready(function ready() {
   });
 });
 
+
 $(document).ready(authenticateUser());
 

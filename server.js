@@ -96,8 +96,8 @@ function lookupUser (req, res) {
     .then(results => {
       if (results.rowCount > 0) {
         //get row id
-        let safeValue = [results.rows[0].id]
-        res.redirect(`/user/${safeValue}`)
+        let safeValue = [results.rows[0].id];
+        res.redirect(`/user/${safeValue}`);
       } else {
         res.redirect('/newAccount');
       }
