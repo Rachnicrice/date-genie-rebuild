@@ -16,7 +16,6 @@ const PORT = process.env.PORT || 3001;
 //import modules:
 const handleLocation = require('./modules/location');
 const error = require('./modules/error.js');
-const addToSavedDates = require('./modules/savedDates.js');
 // const handleMovies = require('./modules/movie.js');
 
 app.use(express.urlencoded({ extended: true, }));
@@ -37,14 +36,17 @@ app.get('/', (req, res) => {
 app.get('/:id/search', handleSearch);
 app.post('/:id/searchResults', handleLocation);
 app.post('/user', lookupUser);
-app.get('/user/:id', renderHome)
+app.get('/user/:id', renderHome);
 app.get('/todos', renderTodos);
 app.get('/newAccount', handleNew);
 app.post('/addUser', addUser);
 // app.post('/', addToSavedDates);
 // app.get('/getMovies', handleMovies);
 app.post('/:id/makeDate', addNewDate);
+app.post('/:id/editDate', editExistingDate);
+app.post('/:id/editADate', editDate);
 app.get('/todo/:id', list);
+app.post('/:id/deleteDate', deleteDate);
 
 //error handlers:
 app.get('*', notFoundHandler);
@@ -72,6 +74,7 @@ function list( req, res) {
   res.render('pages/todo', {id:id});
 }
 
+//Grab the user's saved dates info from the database and pass it to the home page to render
 function renderHome (req, res) {
   let id = [req.params.id];
   let SQL = `SELECT * FROM saved_dates WHERE user_is=$1`;
@@ -93,8 +96,8 @@ function lookupUser (req, res) {
     .then(results => {
       if (results.rowCount > 0) {
         //get row id
-        let safeValue = [results.rows[0].id]
-        res.redirect(`/user/${safeValue}`)
+        let safeValue = [results.rows[0].id];
+        res.redirect(`/user/${safeValue}`);
       } else {
         res.redirect('/newAccount');
       }
@@ -102,6 +105,7 @@ function lookupUser (req, res) {
     .catch(err => error(err, res));
 }
 
+//From the search results add a resturant to the saved_dates table in the database
 function addNewDate (req, res) {
   let id = req.params.id;
   let { restaurant, rating, budget, img_url, address, phone, link_url } = req.body;
@@ -111,12 +115,44 @@ function addNewDate (req, res) {
 
   return client.query(SQL, safeValues)
     .then ( results => {
-      console.log(results);
-      res.redirect(`/user/${id}`);
+      console.log(results.rows[0])
+      res.render('pages/makeADate', {date:results.rows[0], id:id});
+      res.redirect(`/${id}/editADate`);
     })
     .catch(error => {
       Error(error, res);
     });
+}
+
+function editDate (req, res) {
+  let user = req.params.id;
+  let { id, restaurant, rating, budget, img_url, address, phone, link_url } = req.body;
+
+  let SQL = `UPDATE saved_dates SET restaurant=$1, budget=$2, link_url=$3, img_url=$4, rating=$5, address=$6, phone=$7 WHERE id=$8;`;
+  let safeValues = [restaurant, budget, link_url, img_url, parseInt(rating), address, phone, id];
+
+  client.query(SQL, safeValues)
+    .then( () => {
+      console.log('updated database')
+      res.redirect(`/user/${user}`)
+    })
+    .catch(error => {
+      Error(error, res);
+    });
+}
+
+function editExistingDate (req, res) {
+  let user = req.params.id;
+  let { id } = req.body;
+
+  let SQL = `SELECT * FROM saved_dates WHERE id=$1;`;
+  let safeValue = [id];
+
+  client.query(SQL, safeValue)
+    .then( results => {
+      res.render('pages/makeADate', {date:results.rows[0], id:user});
+      res.redirect(`/${id}/editADate`);
+    })
 }
 
 //Add new user to database
@@ -128,6 +164,25 @@ function addUser(req, res) {
   client.query(SQL, safeValues)
     .then(() => {
       res.redirect('/');
+    })
+    .catch(error => {
+      Error(error, res);
+    });
+}
+
+function deleteDate (req, res) {
+  let user = req.params.id;
+  let { id } = req.body;
+
+  let SQL = `DELETE FROM saved_dates WHERE id=$1`
+  let safeValue = [id];
+
+  client.query(SQL, safeValue)
+    .then ( () => {
+      res.redirect(`/user/${user}`)
+    })
+    .catch(error => {
+      Error(error, res);
     });
 }
 

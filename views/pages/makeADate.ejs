@@ -4,7 +4,22 @@
 
 <body>
 
-  
+  <section>
+    <form action="/<%=id%>/editADate" method="POST">
+      <input type="hidden" name="id" value="<%=date.id%>">
+        <input type="text" name="restaurant" value="<%=date.restaurant%>">
+        <input type="text" name="rating" value="<%=date.rating%>">
+        <input type="text" name="budget" value="<%=date.budget%>">
+        <input type="text" name="img_url" value="<%=date.img_url%>">
+        <input type="hidden" name="address" value="<%=date.address%>">
+        <input type="text" name="phone" value="<%=date.phone%>">
+        <input type="text" name="link_url" value="<%=date.link_url%>">
+        <button id="editdate">Edit Date</button>
+    </form>
+    <form action="/<%=id%>/deleteDate">
+      <input type="hidden" name="id" value="<%=date.id%>">
+    </form>
+  </section>
 
 </body>
 

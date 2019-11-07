@@ -2,7 +2,7 @@
 
 $('.unhide').on('click', function () {
   console.log(`I'm clicked!`)
-  $('nav').fadeIn();
+  $('nav').toggleClass('hide');
 });
 
 $('nav > p > a').on('click', function () {
@@ -44,6 +44,7 @@ $(document).ready(function ready() {
     });
   });
 });
+
 
 $(document).ready(authenticateUser());
 
