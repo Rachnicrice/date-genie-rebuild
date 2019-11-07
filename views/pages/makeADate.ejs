@@ -16,6 +16,9 @@
         <input type="text" name="link_url" value="<%=date.link_url%>">
         <button id="editdate">Edit Date</button>
     </form>
+    <form action="/<%=id%>/deleteDate">
+      <input type="hidden" name="id" value="<%=date.id%>">
+    </form>
   </section>
 
 </body>
