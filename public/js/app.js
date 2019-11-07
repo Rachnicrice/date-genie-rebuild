@@ -28,8 +28,6 @@ $('#login').on('click', function () {
   localStorage.setItem('user', user);
 });
 
-
-
 $(document).ready(function ready() {
   $('#btnin').click(function click() {
     $('#container').append('<span><input type="checkbox" class="chck">' + $('#txtin').val() + '<br /></span>');

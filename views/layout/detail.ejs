@@ -6,6 +6,7 @@
   <p>Address: <%=result.address%></p>
   <p>Phone: <%=result.phone%></p>
   <p><a href="<%=result.link_url%>">visit website</a></p>
+  
   <form action="/<%=id%>/makeDate" method="POST">
     <input type="hidden" name="restaurant" value="<%=result.restaurant%>">
     <input type="hidden" name="rating" value="<%=result.rating%>">
