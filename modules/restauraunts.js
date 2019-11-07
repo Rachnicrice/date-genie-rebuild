@@ -3,18 +3,17 @@
 const superagent = require('superagent');
 require('dotenv').config();
 
-function handleYelp(req, res, locationObj) {
-  const url = `https://api.yelp.com/v3/businesses/search?location=${locationObj.city}`;
 
+function handleYelp(req, res, locationObj, id) {
+  const url = `https://api.yelp.com/v3/businesses/search?location=${locationObj.city}`;
   superagent.get(url).set(`Authorization`, `Bearer ${process.env.YELP_API_KEY}`)
     .then(resultsFromAPI => {
       //Creating an array yelp businesses and returning data to the webpage
       const yelpData = resultsFromAPI.body.businesses.map(restaurants => {
         return new Restaurant(restaurants);
-      });
-      console.log(yelpData);
-      res.status(200).render('pages/searchResults', {resultsArray: yelpData});
 
+      });
+      res.status(200).render('pages/searchResults', {resultsArray:yelpData, id:id});
     })
     .catch((error) => {
       Error(error, res);
@@ -29,12 +28,19 @@ function Error(error, res) {
 
 //Constructor function for data recieved from yelp API
 function Restaurant(otherData) {
-  this.name = otherData.name;
+  let regex = /^(https:)/;
+  if (regex.test(otherData.image_url)) {
+    otherData.image_url.replace(regex, '');
+  }
+
+  this.restaurant = otherData.name;
   // eslint-disable-next-line camelcase
-  this.image_url = otherData.image_url;
-  this.price = otherData.price;
+  this.img_url = otherData.image_url;
+  this.budget = otherData.price;
   this.rating = otherData.rating;
-  this.url = otherData.url;
+  this.link_url = otherData.url;
+  this.address = otherData.display_address;
+  this.phone = otherData.display_phone;
 }
 
 module.exports = handleYelp;

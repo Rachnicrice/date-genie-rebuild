@@ -30,7 +30,7 @@ CREATE TABLE saved_dates (
   id SERIAL PRIMARY KEY,
   user_is INTEGER,
   restaurant VARCHAR (255),
-  budget NUMERIC,
+  budget VARCHAR(255),
   link_url VARCHAR,
   img_url VARCHAR,
   description VARCHAR,
