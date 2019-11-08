@@ -6,6 +6,7 @@ body {
   background-color: white;
   border-radius: 2%;
   border: black solid 2px;
+  margin-top: 1vw;
 }
 
 header {
@@ -25,6 +26,31 @@ header > img {
  
 }
 
+#loginForm h2 {
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size: 1.2vw;
+  margin-bottom: 1vw;
+  margin-top: 2vw;
+}
+
+#loginForm {
+margin-top: 3vw;
+display: flex;
+flex-direction: column;
+text-align: center;
+background: rgb(155, 148, 148);
+border-radius: 5%;
+width: 55%;
+padding-bottom: 3vw;
+-webkit-box-shadow: 5px 5px 15px 5px #000000; 
+box-shadow: 5px 5px 15px 5px #000000;
+}
+
+#login{
+  align-self: end;
+  width: 15%;
+  text-align: center;
+}
 article {
   font-family: 'Lato', sans-serif;
   background-color: rgb(155, 148, 148);
@@ -61,6 +87,55 @@ article > img {
   margin: 4vw auto auto 2vw;
 }
 
+.create {
+margin: 3vw auto;
+display: flex;
+flex-direction: column;
+text-align: center;
+background: rgb(155, 148, 148);
+border-radius: 5%;
+width: 55%;
+padding-bottom: 3vw;
+-webkit-box-shadow: 5px 5px 15px 5px #000000; 
+box-shadow: 5px 5px 15px 5px #000000;
+}
+
+.create h1 {
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size: 1.5vw;
+  margin-bottom: 1vw;
+  margin-top: 2vw;
+}
+
+.create h2 {
+  font-size: 1.1vw;
+  margin-bottom: 1vw;
+}
+
+.create fieldset {
+  margin: 2vw;
+
+}
+
+#searchRes h2{
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size: 1.2vw;
+  margin-bottom: 1vw;
+  margin-top: 2vw;
+}
+
+#searchRes {
+margin: 3vw auto;
+display: flex;
+flex-direction: column;
+text-align: center;
+background: rgb(155, 148, 148);
+border-radius: 5%;
+width: 55%;
+padding-bottom: 3vw;
+-webkit-box-shadow: 5px 5px 15px 5px #000000; 
+box-shadow: 5px 5px 15px 5px #000000;
+}
 .menu {
   width: 40px;
   height: 5px;
@@ -94,6 +169,12 @@ nav > p > a {
 
 footer {
   line-height: 3em;
+  background-color: black;
+  color: rgb(155, 148, 148);
+  border-radius: 0%;
+  margin-top: 5vw;
+  margin-bottom: 1vw;
+
 }
 
 section {

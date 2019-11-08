@@ -1,32 +1,33 @@
 <div class="create">
-
-    <form action="/addUser" method="POST">
+  <h1>Create an account:</h1>
+  
+  <form action="/addUser" method="POST">
   
       <fieldset>
         <label>
-          Username
+         <h2>Username</h2>
           <input type="text" name="username">
         </label>
       </fieldset>
   
       <fieldset>
         <label>
-          Password
+          <h2>Password</h2>
           <input type="text" name="password">
         </label>
       </fieldset>
   
       <fieldset>
-        Do you have kids?
+        <h2>Do you have kids?</h2>
         <label>
-          <input type="radio" name="kids" id="yes" value="true">
-          <input type="radio" name="kids" id="no" value="false">
+          <label>Yes<input type="radio" name="kids" id="yes" value="true"></label>
+          <label>No<input type="radio" name="kids" id="no" value="false"></label>
         </label>
       </fieldset>
 
       <fieldset>
         <label>
-          What city will you be dating in?
+          <h2>What city will you be dating in?</h2>
           <input type="text" name="location" placeholder="Please enter a city">
         </label>
       </fieldset>
