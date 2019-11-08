@@ -29,5 +29,7 @@ CREATE TABLE saved_dates (
   rating NUMERIC,
   address VARCHAR,
   phone VARCHAR,
+  title VARCHAR (255),
+  date_of VARCHAR(255),
   FOREIGN KEY (user_is) REFERENCES users (id) ON DELETE CASCADE
 );

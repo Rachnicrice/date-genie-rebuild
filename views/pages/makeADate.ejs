@@ -6,14 +6,22 @@
 
   <section>
     <form action="/<%=id%>/editADate" method="POST">
+      <label>
+        What's the occasion?
+        <input type="text" name="title" placeholder="anniversary, birthday, etc.">
+      </label>
+      <label>
+        When's the date?
+        <input type="text" name="date" placeholder="November 13, 2019">
+      </label>
       <input type="hidden" name="id" value="<%=date.id%>">
-        <input type="text" name="restaurant" value="<%=date.restaurant%>">
-        <input type="text" name="rating" value="<%=date.rating%>">
-        <input type="text" name="budget" value="<%=date.budget%>">
-        <input type="text" name="img_url" value="<%=date.img_url%>">
+        <input type="hidden" name="restaurant" value="<%=date.restaurant%>">
+        <input type="hidden" name="rating" value="<%=date.rating%>">
+        <input type="hidden" name="budget" value="<%=date.budget%>">
+        <input type="hidden" name="img_url" value="<%=date.img_url%>">
         <input type="hidden" name="address" value="<%=date.address%>">
-        <input type="text" name="phone" value="<%=date.phone%>">
-        <input type="text" name="link_url" value="<%=date.link_url%>">
+        <input type="hidden" name="phone" value="<%=date.phone%>">
+        <input type="hidden" name="link_url" value="<%=date.link_url%>">
         <button id="editdate">Edit Date</button>
     </form>
     <form action="/<%=id%>/deleteDate">
