@@ -1,12 +1,17 @@
 <!DOCTYPE html>
 <html>
-    <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+
 <body>
   <%- include('../layout/header') %>
   <Main>
     <form class="login hide" action="/user" method="POST">
-      <input type="text" name="username" placeholder="Please enter username">
-      <button id="login">Login</button>
+      <section id="loginForm">
+        <h2>Have an account? Login here.</h2>
+        <h2>Don't have an account? <br>Enter a unique username to create one!</h2>
+        <input type="text" name="username" placeholder="Please enter username">
+        <button id="login">Login</button>
+      </section>
     </form>
 
     <% if (datesArray) { %>

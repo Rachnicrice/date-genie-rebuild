@@ -111,6 +111,8 @@ function addNewDate (req, res) {
   let SQL = 'INSERT INTO saved_dates (user_is, restaurant, budget, link_url, img_url, rating, address, phone) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *;';
   let safeValues = [id, restaurant, budget, link_url, img_url, parseInt(rating), address, phone];
 
+  console.log(safeValues)
+
   return client.query(SQL, safeValues)
     .then ( results => {
       console.log(results.rows[0])
@@ -124,14 +126,17 @@ function addNewDate (req, res) {
 
 function editDate (req, res) {
   let user = req.params.id;
-  let { id, restaurant, rating, budget, img_url, address, phone, link_url } = req.body;
+  let { title, date, id, restaurant, rating, budget, img_url, address, phone, link_url } = req.body;
 
-  let SQL = `UPDATE saved_dates SET restaurant=$1, budget=$2, link_url=$3, img_url=$4, rating=$5, address=$6, phone=$7 WHERE id=$8;`;
-  let safeValues = [restaurant, budget, link_url, img_url, parseInt(rating), address, phone, id];
+  console.log(req.body);
+
+  let SQL = `UPDATE saved_dates SET restaurant=$1, budget=$2, link_url=$3, img_url=$4, rating=$5, address=$6, phone=$7, title=$8, date_of=$9 WHERE id=$10;`;
+  let safeValues = [restaurant, budget, link_url, img_url, parseInt(rating), address, phone, title, date, id];
+
+  console.log(safeValues)
 
   client.query(SQL, safeValues)
     .then( () => {
-      console.log('updated database')
       res.redirect(`/user/${user}`)
     })
     .catch(error => {
