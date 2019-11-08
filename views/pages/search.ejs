@@ -5,12 +5,14 @@
   <%- include('../layout/header') %>
 
   <main>
-    <h4>Search for Resturants</h4>
+    <section id= "searchRes">
+    <h2>Search for Restaurants</h2>
 
     <form action="/<%=id%>/searchResults" method="POST">
       <input type="text" name="search" placeholder="Enter your city">
       <button type="submit">Find Resturants Near Me!</button>
     </form>
+    </section>
   </main>
 
 </body>
