@@ -34,7 +34,6 @@ function Restaurant(otherData) {
   }
 
   this.restaurant = otherData.name;
-  // eslint-disable-next-line camelcase
   this.img_url = otherData.image_url;
   this.budget = otherData.price;
   this.rating = otherData.rating;

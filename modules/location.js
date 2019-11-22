@@ -6,7 +6,6 @@ const client = require('./client.js');
 const superagent = require('superagent');
 const error = require('./error.js');
 const handleYelp = require('./restauraunts.js');
-// const handleMovies = require('./movie.js');
 
 function handleLocation(req, res) {
   console.log('We are here: ');
@@ -48,6 +47,7 @@ function queryDatabase(req, res, url, id) {
     })
     .catch(err => error(err, res));
 }
+
 function CityLocation(cityName, someData) {
   this.city = cityName;
   this.lat = someData.geometry.location.lat;

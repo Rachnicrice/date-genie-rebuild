@@ -15,7 +15,6 @@ const PORT = process.env.PORT || 3001;
 //import modules:
 const handleLocation = require('./modules/location');
 const error = require('./modules/error.js');
-// const handleMovies = require('./modules/movie.js');
 
 app.use(express.urlencoded({ extended: true, }));
 app.set('view engine', 'ejs');
