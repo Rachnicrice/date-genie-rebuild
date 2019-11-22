@@ -7,6 +7,7 @@ body {
   border-radius: 2%;
   border: black solid 2px;
   margin-top: 1vw;
+  margin-bottom: 1vw;
 }
 
 header {
@@ -97,7 +98,7 @@ footer {
   color: rgb(155, 148, 148);
   border-radius: 0%;
   margin-top: 5vw;
-  margin-bottom: 1vw;
+  margin-bottom: 2.5vw;
 
 }
 
