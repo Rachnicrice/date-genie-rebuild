@@ -33,3 +33,12 @@ CREATE TABLE saved_dates (
   date_of VARCHAR(255),
   FOREIGN KEY (user_is) REFERENCES users (id) ON DELETE CASCADE
 );
+
+DROP TABLE IF EXISTS tasks;
+CREATE TABLE tasks (
+  id SERIAL PRIMARY KEY,
+  date_is INTEGER,
+  task VARCHAR (255),
+  status BOOLEAN,
+  FOREIGN KEY (date_is) REFERENCES saved_dates (id) ON DELETE CASCADE
+);
